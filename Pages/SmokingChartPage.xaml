@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiMedicalApp.Pages.SmokingChartPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiMedicalApp.Pages"
+    xmlns:viewmodels="clr-namespace:MauiMedicalApp.ViewModels"
+    xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+    Title="吸菸紀錄圖表">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SmokingChartViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- 標題 -->
+            <Label Text="每日吸菸量統計圖表"
+                   FontSize="24"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Black" />
+
+            <!-- 選擇統計範圍 -->
+            <Picker x:Name="RangePicker"
+                    Title="選擇統計範圍"
+                    ItemsSource="{Binding RangeOptions}"
+                    SelectedItem="{Binding SelectedRange}"
+                    HeightRequest="50"
+                    FontSize="18"/>
+
+            <!-- 狀態指示燈 -->
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Ellipse WidthRequest="30"
+                         HeightRequest="30"
+                         Fill="{Binding IndicatorColor}"
+                         Stroke="Gray"
+                         StrokeThickness="2"/>
+                <Label Text="{Binding IndicatorText}"
+                       FontSize="14"
+                       TextColor="Black" />
+            </VerticalStackLayout>
+
+            <!-- 折線圖 -->
+            <microcharts:ChartView Chart="{Binding SmokingChart}"
+                                   HeightRequest="300"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,62 @@
+<Shell
+    x:Class="MauiMedicalApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MauiMedicalApp.Pages">
+    <ShellContent
+        Route="LoginPage"
+        ContentTemplate="{DataTemplate pages:LoginPage}" />
+
+    <ShellContent
+        Route="RegisterPage"
+        ContentTemplate="{DataTemplate pages:RegisterPage}" />
+    
+    <ShellContent
+    Route="DietRecordPage"
+    ContentTemplate="{DataTemplate pages:DietRecordPage}" />
+
+
+    <TabBar>
+        <!-- 首頁 -->
+        <ShellContent
+            Title="首頁"
+            ContentTemplate="{DataTemplate pages:HomePage}"
+            Route="HomePage" />
+
+        <!-- 健康建議 -->
+        <ShellContent
+            Title="健康建議"
+            ContentTemplate="{DataTemplate pages:HealthAdvicePage}"
+            Route="HealthAdvicePage"
+            IsVisible="False" />
+
+        <!-- 肺癌風險預測 -->
+        <ShellContent
+            Title="風險預測"
+            ContentTemplate="{DataTemplate pages:RiskPredictPage}"
+            Route="RiskPredictPage"
+            IsVisible="False" />
+
+        <!-- 吸菸圖表 -->
+        <ShellContent 
+            Title="吸菸圖表"
+            Route="SmokingChartPage"
+            ContentTemplate="{DataTemplate pages:SmokingChartPage}"
+            IsVisible="False"/>
+
+        <!-- 運動紀錄 -->
+        <ShellContent
+            Title="運動紀錄"
+            Route="SportRecordPage"
+            ContentTemplate="{DataTemplate pages:SportRecordPage}"
+            IsVisible="False" />
+
+        <!-- 影像辨識 -->
+        <ShellContent
+            Title="影像辨識"
+            Route="ImagePredictPage"
+            ContentTemplate="{DataTemplate pages:ImagePredictPage}"
+            IsVisible="False" />
+    </TabBar>
+
+</Shell>

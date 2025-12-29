@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiMedicalApp.ViewModels"
+             x:Class="MauiMedicalApp.Pages.RiskPredictPage"
+             Title="肺癌風險預測">
+
+    <ContentPage.BindingContext>
+        <vm:RiskPredictViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="年齡：" />
+            <Entry 
+                x:Name="AgeEntry"
+                Text="{Binding Age, Mode=TwoWay}" 
+                Keyboard="Numeric" 
+                Placeholder="請輸入年齡" />
+
+            <Label Text="性別：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="MaleRadio" Content="男" GroupName="Gender" />
+                <RadioButton x:Name="FemaleRadio" Content="女" GroupName="Gender" />
+            </HorizontalStackLayout>
+
+            <Label Text="吸菸：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="SmokingYes" Content="是" GroupName="Smoking" />
+                <RadioButton x:Name="SmokingNo" Content="否" GroupName="Smoking" />
+            </HorizontalStackLayout>
+
+            <Label Text="手指泛黃：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="YellowYes" Content="是" GroupName="Yellow" />
+                <RadioButton x:Name="YellowNo" Content="否" GroupName="Yellow" />
+            </HorizontalStackLayout>
+
+            <Label Text="焦慮：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="AnxietyYes" Content="是" GroupName="Anxiety" />
+                <RadioButton x:Name="AnxietyNo" Content="否" GroupName="Anxiety" />
+            </HorizontalStackLayout>
+
+            <Label Text="同儕壓力：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="PeerYes" Content="是" GroupName="Peer" />
+                <RadioButton x:Name="PeerNo" Content="否" GroupName="Peer" />
+            </HorizontalStackLayout>
+
+            <Label Text="慢性疾病：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="ChronicYes" Content="是" GroupName="Chronic" />
+                <RadioButton x:Name="ChronicNo" Content="否" GroupName="Chronic" />
+            </HorizontalStackLayout>
+
+            <Label Text="疲勞：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="FatigueYes" Content="是" GroupName="Fatigue" />
+                <RadioButton x:Name="FatigueNo" Content="否" GroupName="Fatigue" />
+            </HorizontalStackLayout>
+
+            <Label Text="過敏：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="AllergyYes" Content="是" GroupName="Allergy" />
+                <RadioButton x:Name="AllergyNo" Content="否" GroupName="Allergy" />
+            </HorizontalStackLayout>
+
+            <Label Text="喘鳴：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="WheezingYes" Content="是" GroupName="Wheezing" />
+                <RadioButton x:Name="WheezingNo" Content="否" GroupName="Wheezing" />
+            </HorizontalStackLayout>
+
+            <Label Text="飲酒：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="AlcoholYes" Content="是" GroupName="Alcohol" />
+                <RadioButton x:Name="AlcoholNo" Content="否" GroupName="Alcohol" />
+            </HorizontalStackLayout>
+
+            <Label Text="咳嗽：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="CoughYes" Content="是" GroupName="Cough" />
+                <RadioButton x:Name="CoughNo" Content="否" GroupName="Cough" />
+            </HorizontalStackLayout>
+
+            <Label Text="呼吸困難：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="BreathYes" Content="是" GroupName="Breath" />
+                <RadioButton x:Name="BreathNo" Content="否" GroupName="Breath" />
+            </HorizontalStackLayout>
+
+            <Label Text="吞嚥困難：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="SwallowYes" Content="是" GroupName="Swallow" />
+                <RadioButton x:Name="SwallowNo" Content="否" GroupName="Swallow" />
+            </HorizontalStackLayout>
+
+            <Label Text="胸痛：" />
+            <HorizontalStackLayout>
+                <RadioButton x:Name="ChestYes" Content="是" GroupName="Chest" />
+                <RadioButton x:Name="ChestNo" Content="否" GroupName="Chest" />
+            </HorizontalStackLayout>
+
+            <Button 
+                Text="送出預測" 
+                Clicked="OnPredictClicked" />
+
+            <Label 
+                    Text="{Binding ResultText}"
+                    TextColor="Red"
+                    FontSize="16"
+            />
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

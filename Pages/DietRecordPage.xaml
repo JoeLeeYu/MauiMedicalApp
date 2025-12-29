@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiMedicalApp.Pages.DietRecordPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiMedicalApp.ViewModels"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <ContentPage.BindingContext>
+        <vm:DietRecordViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Title -->
+            <Label Text="飲食紀錄"
+                   FontSize="26"
+                   FontAttributes="Bold"/>
+
+            <!-- Input Card -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="18"
+                   Padding="18"
+                   HasShadow="True">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Meal Type -->
+                    <Label Text="餐別" FontAttributes="Bold"/>
+
+                    <HorizontalStackLayout Spacing="20">
+                        <RadioButton Content="早餐"
+                                     GroupName="Meal"
+                                     IsChecked="{Binding IsBreakfast}" />
+                        <RadioButton Content="午餐"
+                                     GroupName="Meal"
+                                     IsChecked="{Binding IsLunch}" />
+                        <RadioButton Content="晚餐"
+                                     GroupName="Meal"
+                                     IsChecked="{Binding IsDinner}" />
+                        <RadioButton Content="點心"
+                                     GroupName="Meal"
+                                     IsChecked="{Binding IsSnack}" />
+                    </HorizontalStackLayout>
+
+                    <!-- Categories -->
+                    <Label Text="飲食類別" FontAttributes="Bold"/>
+
+                    <VerticalStackLayout Spacing="6">
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasGrain}" />
+                            <Label Text="全榖雜糧類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasVegetable}" />
+                            <Label Text="蔬菜類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasProtein}" />
+                            <Label Text="豆魚蛋肉類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasDairy}" />
+                            <Label Text="乳品類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasFruit}" />
+                            <Label Text="水果類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasFatNut}" />
+                            <Label Text="油脂與堅果種子類" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- Item -->
+                    <Entry Placeholder="輸入飲食內容"
+                           Text="{Binding Item}"
+                           FontSize="16"/>
+
+                    <!-- Calories -->
+                    <Entry Placeholder="熱量（大卡，可不填）"
+                           Keyboard="Numeric"
+                           Text="{Binding Calories}"
+                           FontSize="16"/>
+
+                    <Button Text="新增紀錄"
+                            Command="{Binding SaveCommand}"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="10"
+                            HeightRequest="46"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Date Picker -->
+            <Label Text="歷史紀錄"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0"/>
+
+            <DatePicker Date="{Binding SelectedDate}"
+                        MaximumDate="{x:Static sys:DateTime.Today}"
+                        Format="yyyy/MM/dd"/>
+
+            <!-- Sum -->
+            <Label Text="{Binding DailyTotalCalories, StringFormat='當日總熱量：{0} 大卡'}"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Margin="0,5"/>
+
+            <!-- Records -->
+            <CollectionView ItemsSource="{Binding Records}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White"
+                               CornerRadius="14"
+                               Padding="16"
+                               Margin="0,8"
+                               HasShadow="True">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Item}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding Calories, StringFormat='{0} 大卡'}"
+                                       FontSize="14"
+                                       TextColor="#6B7280"/>
+
+                                <Label Text="{Binding Categories}"
+                                       FontSize="13"
+                                       TextColor="#6B7280"/>
+
+                                <Label Text="{Binding RecordTime, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
+                                       FontSize="12"
+                                       TextColor="#9CA3AF"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

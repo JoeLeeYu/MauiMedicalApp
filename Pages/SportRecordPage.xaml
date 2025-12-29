@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiMedicalApp.Pages.SportRecordPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="運動紀錄"
+    BackgroundColor="#F3F4F6">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- 輸入區 -->
+            <Frame BorderColor="#E5E7EB"
+                   BackgroundColor="White"
+                   CornerRadius="16"
+                   Padding="16"
+                   HasShadow="True">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="選擇運動類型"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="#111827"/>
+
+                    <Picker ItemsSource="{Binding SportTypes}"
+                            SelectedItem="{Binding SelectedSport}" />
+
+                    <!-- 自訂運動 -->
+                    <Entry Placeholder="請輸入運動名稱"
+                           Text="{Binding CustomSportName}"
+                           IsVisible="{Binding IsCustomSport}"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                    <Label Text="運動時間（分鐘）"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           Margin="0,8,0,0"
+                           TextColor="#111827"/>
+
+                    <Entry Placeholder="例如：30"
+                           Text="{Binding InputMinutes}"
+                           Keyboard="Numeric"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                    <Label Text="距離（公里，可選）"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           Margin="0,8,0,0"
+                           TextColor="#111827"/>
+
+                    <Entry Placeholder="例如：2.5"
+                           Text="{Binding InputDistance}"
+                           Keyboard="Numeric"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                    <Button Text="記錄"
+                            Command="{Binding AddSportCommand}"
+                            BackgroundColor="#4F46E5"
+                            TextColor="White"
+                            CornerRadius="12"
+                            HeightRequest="48"
+                            Margin="0,12,0,0"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 本週進度 -->
+            <Frame Padding="14"
+                   CornerRadius="16"
+                   BorderColor="#E5E7EB"
+                   BackgroundColor="White"
+                   HasShadow="True">
+
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="本週進度"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="#111827"/>
+
+                    <ProgressBar Progress="{Binding WeeklyProgress}"
+                                 HeightRequest="10"/>
+
+                    <Label Text="{Binding WeeklyProgressText}"
+                           FontSize="14"
+                           TextColor="#4B5563"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 紀錄列表 -->
+            <Frame BorderColor="#E5E7EB"
+                   BackgroundColor="White"
+                   CornerRadius="16"
+                   Padding="0"
+                   HasShadow="True">
+
+                <CollectionView ItemsSource="{Binding Records}"
+                                VerticalOptions="FillAndExpand">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="12,8"
+                                  RowDefinitions="Auto,Auto,Auto">
+
+                                <Label Grid.Row="0"
+                                       Text="{Binding Type}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="#111827"/>
+
+                                <Label Grid.Row="1"
+                                       Text="{Binding DisplayInfo}"
+                                       FontSize="14"
+                                       TextColor="#4B5563"/>
+
+                                <Label Grid.Row="2"
+                                       Text="{Binding Date, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
+                                       FontSize="12"
+                                       TextColor="#9CA3AF"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </Frame>
+
+            <!-- 健康建議 -->
+            <Button Text="查看健康建議"
+                    Command="{Binding OpenHealthAdviceCommand}"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="48"
+                    Margin="0,4,0,8"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

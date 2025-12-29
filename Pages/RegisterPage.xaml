@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewModels="clr-namespace:MauiMedicalApp.ViewModels;assembly=MauiMedicalApp"
+             x:Class="MauiMedicalApp.Pages.RegisterPage"
+             Title="RegisterPage">
+    <!-- MVVM 綁定 ViewModel -->
+    <ContentPage.BindingContext>
+    <viewModels:RegisterPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15">
+
+            <Label Text="註冊帳號" FontSize="24" HorizontalOptions="Center" />
+
+            <Entry Placeholder="帳號"
+                   Text="{Binding Account}" />
+
+            <Entry Placeholder="密碼"
+                   IsPassword="True"
+                   Text="{Binding Password}" />
+
+            <Entry Placeholder="姓名"
+                   Text="{Binding Name}" />
+
+            <HorizontalStackLayout>
+                <Label Text="性別：" VerticalOptions="Center" />
+                <Picker WidthRequest="120"
+                        Title="選擇性別"
+                        SelectedItem="{Binding Gender}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>男</x:String>
+                            <x:String>女</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </HorizontalStackLayout>
+
+            <Label Text="生日：" />
+            <DatePicker Date="{Binding Birthday}"
+                        MaximumDate="{x:Static sys:DateTime.Today}" />
+
+            <Entry Placeholder="身高 (cm)"
+                   Keyboard="Numeric"
+                   Text="{Binding Height}" />
+
+            <Entry Placeholder="體重 (kg)"
+                   Keyboard="Numeric"
+                   Text="{Binding Weight}" />
+
+            <Button Text="註冊"
+                    Command="{Binding RegisterCommand}" />
+
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="Red"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding IsStatusVisible}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,59 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiMedicalApp.ViewModels"
+             x:Class="MauiMedicalApp.Pages.ImagePredictPage"
+             Title="影像檢測">
+
+    <ContentPage.BindingContext>
+        <viewmodel:ImagePredictPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="{Binding StatusText}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+            <Button Text="📷 拍照"
+                    Command="{Binding TakePhotoCommand}"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="10" />
+
+            <Button Text="🖼️ 選擇照片"
+                    Command="{Binding PickPhotoCommand}"
+                    BackgroundColor="#34C759"
+                    TextColor="White"
+                    CornerRadius="10"/>
+
+            <Button Text="🔍 分析圖片"
+                    Command="{Binding AnalyzeCommand}"
+                    IsEnabled="{Binding CanAnalyze}"
+                    BackgroundColor="#FF9500"
+                    TextColor="White"
+                    CornerRadius="10" />
+
+            <Image Source="{Binding ImageSource}"
+                   IsVisible="{Binding IsImageVisible}"
+                   Aspect="AspectFit"
+                   Margin="0,10"
+                   HeightRequest="280" />
+
+            <Label Text="分析結果"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,0"/>
+
+            <Label Text="{Binding ResultText}"
+                   FontSize="16"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Start"
+                   LineBreakMode="WordWrap"
+                   IsVisible="{Binding IsResultVisible}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

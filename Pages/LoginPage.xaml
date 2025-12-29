@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiMedicalApp.ViewModels"
+             x:Class="MauiMedicalApp.Pages.LoginPage"
+             BackgroundColor="#F5F7FA">
+
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="1.2*,2.5*">
+
+        <Grid BackgroundColor="#3B82F6">
+            <Image Source="medical_login.png"
+                   Aspect="AspectFill"  Margin="0, 0, 0, 0"  VerticalOptions="End"  HorizontalOptions="FillAndExpand" />
+        </Grid>
+
+        <Frame Grid.Row="1"
+               CornerRadius="40"
+               BackgroundColor="White"
+               HasShadow="False"  Margin="0,-40,0,0"  Padding="30">
+
+            <VerticalStackLayout Spacing="15">
+                <Label Text="歡迎登入"
+                       FontSize="28"
+                       HorizontalOptions="Center"
+                       TextColor="#333" 
+                       Margin="0, 20, 0, 0"/>
+                <Entry Placeholder="E-mail address"
+                       Text="{Binding Username}"
+                       Keyboard="Email"
+                       ClearButtonVisibility="WhileEditing"
+                       HeightRequest="48" />
+
+                <Entry Placeholder="請輸入密碼"
+                       IsPassword="True"
+                       Text="{Binding Password}"
+                       ClearButtonVisibility="WhileEditing"
+                       HeightRequest="48" />
+
+                <Button Text="登入"
+                        Command="{Binding LoginCommand}"
+                        BackgroundColor="#3B82F6"
+                        TextColor="White"
+                        CornerRadius="10"  HeightRequest="55"  FontAttributes="Bold"
+                        Margin="0, 10, 0, 0"/>
+                <Label Text="註冊新帳戶"
+                       HorizontalOptions="Center"
+                       TextColor="#3B82F6"
+                       Margin="0, 15, 0, 0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoRegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="{Binding StatusMessage}"
+                       TextColor="Red"
+                       FontSize="14"
+                       IsVisible="{Binding IsStatusVisible}"
+                       HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+        </Frame>
+    </Grid>
+</ContentPage>

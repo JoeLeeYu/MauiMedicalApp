@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiMedicalApp.Pages.HealthAdvicePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiMedicalApp.ViewModels"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Shell.NavBarIsVisible="True"
+    Title="健康建議"
+    BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ContentPage.BindingContext>
+        <vm:HealthAdviceViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Page Resources -->
+    <ContentPage.Resources>
+        <Color x:Key="PrimaryTextColor">#111827</Color>
+        <Color x:Key="Gray300">#D1D5DB</Color>
+        <Color x:Key="CardBackground">#FFFFFF</Color>
+        <Color x:Key="PageBackgroundColor">#F9FAFB</Color>
+        <Style TargetType="Entry">
+            <Setter Property="Keyboard" Value="Text" />
+            <Setter Property="HeightRequest" Value="44" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Input Card -->
+            <Frame Padding="14" CornerRadius="16" HasShadow="True" BackgroundColor="{StaticResource CardBackground}">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="10">
+
+                    <!-- 姓名 -->
+                    <VerticalStackLayout Grid.ColumnSpan="2">
+                        <Label Text="姓名" />
+                        <Entry Placeholder="請輸入你的姓名" Text="{Binding Name}" MaxLength="10"/>
+                    </VerticalStackLayout>
+
+                    <!-- 生日 -->
+                    <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Text="生日" />
+                        <DatePicker Format="yyyy/MM/dd"
+                                    MinimumDate="1900-01-01"
+                                    MaximumDate="{x:Static sys:DateTime.Today}"
+                                    Date="{Binding BirthDate}"/>
+                    </VerticalStackLayout>
+
+                    <!-- 身高 -->
+                    <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2">
+                        <Label Text="身高（cm）" />
+                        <Entry Placeholder="170" Text="{Binding Height}" Keyboard="Numeric"/>
+                    </VerticalStackLayout>
+
+                    <!-- 體重 -->
+                    <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2">
+                        <Label Text="體重（kg）" />
+                        <Entry Placeholder="65.5" Text="{Binding Weight}" Keyboard="Numeric"/>
+                    </VerticalStackLayout>
+
+                    <!-- 性別 -->
+                    <VerticalStackLayout Grid.Row="4">
+                        <Label Text="性別" />
+                        <Picker ItemsSource="{Binding SexOptions}"
+                                SelectedItem="{Binding SelectedSex}"/>
+                    </VerticalStackLayout>
+
+                    <!-- 活動量 -->
+                    <VerticalStackLayout Grid.Row="4" Grid.Column="1">
+                        <Label Text="活動量" />
+                        <Picker ItemsSource="{Binding ActivityOptions}"
+                                SelectedItem="{Binding SelectedActivity}"/>
+                    </VerticalStackLayout>
+
+                    <!-- 目標 -->
+                    <VerticalStackLayout Grid.Row="5" Grid.ColumnSpan="2">
+                        <Label Text="目標(可選)" />
+                        <Picker ItemsSource="{Binding GoalOptions}"
+                                SelectedItem="{Binding SelectedGoal}"/>
+                    </VerticalStackLayout>
+
+                    <!-- 健康狀況 -->
+                    <VerticalStackLayout Grid.Row="6" Grid.ColumnSpan="2">
+                        <Label Text="身體是否有特殊狀況" />
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding HasJointIssue}" />
+                            <Label Text="關節" />
+                            <CheckBox IsChecked="{Binding HasHeartIssue}" />
+                            <Label Text="心血管" />
+                            <CheckBox IsChecked="{Binding IsPregnant}" />
+                            <Label Text="孕婦" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- 按鈕 -->
+                    <Button Grid.Row="7" Grid.ColumnSpan="2"
+                            Text="產生建議"
+                            Command="{Binding GenerateAdviceCommand}"
+                            BackgroundColor="#4F46E5"
+                            TextColor="White"
+                            HeightRequest="48"
+                            CornerRadius="12"/>
+                </Grid>
+            </Frame>
+
+            <!-- 結果 -->
+            <Label Text="結果" FontAttributes="Bold" FontSize="18"/>
+
+            <!-- BMI + Category -->
+            <Frame Padding="14" CornerRadius="16" BackgroundColor="{StaticResource CardBackground}">
+                <VerticalStackLayout>
+                    <Label Text="BMI" FontAttributes="Bold"/>
+                    <Label Text="{Binding BmiValue}" FontSize="24"/>
+
+                    <Label Text="分類" FontAttributes="Bold"/>
+                    <Label Text="{Binding BmiCategory}" FontSize="24"/>
+
+                    <Label Text="建議重點" FontAttributes="Bold"/>
+                    <Label Text="{Binding KeyHint}" LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 運動 / 飲食 -->
+            <Frame Padding="14" CornerRadius="16" BackgroundColor="{StaticResource CardBackground}">
+                <VerticalStackLayout>
+                    <Label Text="運動建議" FontAttributes="Bold"/>
+                    <Label Text="{Binding ExerciseAdvice}" LineBreakMode="WordWrap"/>
+
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource Gray300}" />
+
+                    <Label Text="飲食建議" FontAttributes="Bold"/>
+                    <Label Text="{Binding DietAdvice}" LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 飲食紀錄按鈕 -->
+            <Button Text="飲食紀錄"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White"
+                    HeightRequest="44"
+                    CornerRadius="10"
+                    Command="{Binding GoRecordPageCommand}"/>
+
+            <Label FontSize="12" Text="＊本建議僅供參考，若有疾病請洽專業醫療人員。" TextColor="#666"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
