@@ -2,7 +2,6 @@
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiMedicalApp.Pages"
     x:Class="MauiMedicalApp.Pages.HomePage"
     BackgroundColor="#FAFAFA"
     Title="首頁">
@@ -16,51 +15,43 @@
                    TextColor="#111827"/>
 
             <Grid ColumnDefinitions="*,*"
-                  RowDefinitions="Auto,Auto,Auto"
+                  RowDefinitions="Auto,Auto,Auto,Auto"
                   ColumnSpacing="20"
                   RowSpacing="20">
 
+                <!-- ⭐ 未來健康情境模擬（Row 0，跨兩欄） -->
+                <Frame Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       CornerRadius="24"
+                       Padding="18"
+                       HeightRequest="120"
+                       HasShadow="True"
+                       BackgroundColor="#EEF2FF">
 
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
 
-                <!-- 健康建議 -->
-                <Frame Grid.Row="0" Grid.Column="0"
-                       CornerRadius="20"
-                       BackgroundColor="White"
-                       Padding="15"
-                       HeightRequest="140"
-                       HasShadow="True">
-                    <VerticalStackLayout HorizontalOptions="Center"
-                                         VerticalOptions="Center">
+                        <Image Source="future.png"
+                               HeightRequest="60"
+                               VerticalOptions="Center"/>
 
-                        <Image Source="check.png" HeightRequest="60"/>
-                        <Label Text="健康建議" FontSize="16" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="未來健康情境模擬"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E3A8A"/>
+
+                            <Label Text="模擬不同生活型態對未來健康風險的影響"
+                                   FontSize="13"
+                                   TextColor="#475569"/>
+                        </VerticalStackLayout>
+                    </Grid>
 
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoHealthAdviceCommand}"/>
+                        <TapGestureRecognizer Command="{Binding GoHealthSimulationCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
 
-                <!-- 肺癌風險預測 -->
-                <Frame Grid.Row="0" Grid.Column="1"
-                       CornerRadius="20"
-                       BackgroundColor="White"
-                       Padding="15"
-                       HeightRequest="140"
-                       HasShadow="True">
-                    <VerticalStackLayout HorizontalOptions="Center"
-                                         VerticalOptions="Center">
-
-                        <Image Source="predict.png" HeightRequest="60"/>
-                        <Label Text="風險預測" FontSize="16" HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
-
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoRiskPredictCommand}"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
-
-                <!-- 影像辨識 -->
+                <!-- Row 1 -->
                 <Frame Grid.Row="1" Grid.Column="0"
                        CornerRadius="20"
                        BackgroundColor="White"
@@ -69,16 +60,15 @@
                        HasShadow="True">
                     <VerticalStackLayout HorizontalOptions="Center"
                                          VerticalOptions="Center">
-                        <Image Source="image.png" HeightRequest="60"/>
-                        <Label Text="CT影像辨識" FontSize="16" HorizontalOptions="Center"/>
+                        <Image Source="check.png" HeightRequest="60"/>
+                        <Label Text="健康建議" FontSize="16"/>
                     </VerticalStackLayout>
-
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoImagePredictCommand}" />
+                        <TapGestureRecognizer Command="{Binding GoHealthAdviceCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
-                <!-- 抽菸紀錄 -->
-                <Frame Grid.Row="1" Grid.Column="1" 
+
+                <Frame Grid.Row="1" Grid.Column="1"
                        CornerRadius="20"
                        BackgroundColor="White"
                        Padding="15"
@@ -86,16 +76,15 @@
                        HasShadow="True">
                     <VerticalStackLayout HorizontalOptions="Center"
                                          VerticalOptions="Center">
-
-                        <Image Source="smoke123.png" HeightRequest="60"/>
-                        <Label Text="抽菸紀錄" FontSize="16" HorizontalOptions="Center"/>
+                        <Image Source="predict.png" HeightRequest="60"/>
+                        <Label Text="風險預測" FontSize="16"/>
                     </VerticalStackLayout>
-
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoSmokingRecordCommand}"/>
+                        <TapGestureRecognizer Command="{Binding GoRiskPredictCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
-                <!-- 飲食紀錄 -->
+
+                <!-- Row 2 -->
                 <Frame Grid.Row="2" Grid.Column="0"
                        CornerRadius="20"
                        BackgroundColor="White"
@@ -103,17 +92,15 @@
                        HeightRequest="140"
                        HasShadow="True">
                     <VerticalStackLayout HorizontalOptions="Center"
-                         VerticalOptions="Center">
-
-                        <Image Source="diet.png" HeightRequest="60"/>
-                        <Label Text="飲食紀錄" FontSize="16" HorizontalOptions="Center"/>
+                                         VerticalOptions="Center">
+                        <Image Source="image.png" HeightRequest="60"/>
+                        <Label Text="CT影像辨識" FontSize="16"/>
                     </VerticalStackLayout>
-
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoDietRecordCommand}"/>
+                        <TapGestureRecognizer Command="{Binding GoImagePredictCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
-                <!-- 運動紀錄 -->
+
                 <Frame Grid.Row="2" Grid.Column="1"
                        CornerRadius="20"
                        BackgroundColor="White"
@@ -121,16 +108,48 @@
                        HeightRequest="140"
                        HasShadow="True">
                     <VerticalStackLayout HorizontalOptions="Center"
-                         VerticalOptions="Center">
-
-                        <Image Source="sport.png" HeightRequest="60"/>
-                        <Label Text="運動紀錄" FontSize="16" HorizontalOptions="Center"/>
+                                         VerticalOptions="Center">
+                        <Image Source="smoke123.png" HeightRequest="60"/>
+                        <Label Text="抽菸紀錄" FontSize="16"/>
                     </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoSmokingRecordCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
 
+                <!-- Row 3 -->
+                <Frame Grid.Row="3" Grid.Column="0"
+                       CornerRadius="20"
+                       BackgroundColor="White"
+                       Padding="15"
+                       HeightRequest="140"
+                       HasShadow="True">
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Image Source="diet.png" HeightRequest="60"/>
+                        <Label Text="飲食紀錄" FontSize="16"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoDietRecordCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame Grid.Row="3" Grid.Column="1"
+                       CornerRadius="20"
+                       BackgroundColor="White"
+                       Padding="15"
+                       HeightRequest="140"
+                       HasShadow="True">
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Image Source="sport.png" HeightRequest="60"/>
+                        <Label Text="運動紀錄" FontSize="16"/>
+                    </VerticalStackLayout>
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoSportRecordCommand}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
+
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

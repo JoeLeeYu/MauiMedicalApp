@@ -46,4 +46,9 @@ public partial class HomeViewModel : ObservableObject
     {
         await Shell.Current.GoToAsync("SportRecordPage");
     }
+    [RelayCommand]
+    async Task GoHealthSimulation()
+    {
+        await Shell.Current.GoToAsync("HealthSimulationPage");
+    }
 }

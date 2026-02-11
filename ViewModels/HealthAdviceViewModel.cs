@@ -24,7 +24,7 @@ namespace MauiMedicalApp.ViewModels
     {
         private readonly HttpClient _client = new HttpClient
         {
-            BaseAddress = new Uri("http://172.20.10.2:8000/")
+            BaseAddress = new Uri("http://192.168.1.106:8000/")
         };
 
         public static string GlobalUserName { get; set; }
@@ -128,7 +128,7 @@ namespace MauiMedicalApp.ViewModels
 
             try
             {
-                string apiUrl = "http://172.20.10.2:8000/advice";
+                string apiUrl = "http://192.168.1.106:8000/advice";
                 var response = await _client.PostAsJsonAsync(apiUrl, data);
                 var json = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
                 BmiValue = json.GetProperty("bmi").GetDouble().ToString("0.0");

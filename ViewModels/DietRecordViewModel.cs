@@ -68,7 +68,7 @@ namespace MauiMedicalApp.ViewModels
             };
 
             var response = await _client.PostAsJsonAsync(
-                "http://172.20.10.2:8000/diet/add",
+                "http://192.168.1.106:8000/diet/add",
                 data);
 
             if (response.IsSuccessStatusCode)
@@ -93,7 +93,7 @@ namespace MauiMedicalApp.ViewModels
             int userId = Preferences.Get("userId", 0);
 
             var result = await _client.GetFromJsonAsync<List<DietRecord>>(
-                $"http://172.20.10.2:8000/diet/user/{userId}");
+                $"http://192.168.1.106:8000/diet/user/{userId}");
 
             Records.Clear();
 

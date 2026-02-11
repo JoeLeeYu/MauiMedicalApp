@@ -135,7 +135,7 @@
             </Frame>
 
             <!-- 飲食紀錄按鈕 -->
-            <Button Text="飲食紀錄"
+            <Button Text="前往飲食紀錄"
                     BackgroundColor="#4F46E5"
                     TextColor="White"
                     HeightRequest="44"

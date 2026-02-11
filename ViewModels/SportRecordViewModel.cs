@@ -81,7 +81,7 @@ public partial class SportRecordViewModel : ObservableObject
         if (userId == 0) return;
 
         var resp = await _httpClient.GetAsync(
-            $"http://172.20.10.2:8000/sport/user/{userId}");
+            $"http://192.168.1.106:8000/sport/user/{userId}");
 
         if (!resp.IsSuccessStatusCode)
             return;
@@ -115,7 +115,7 @@ public partial class SportRecordViewModel : ObservableObject
         try
         {
             var result = await _httpClient.GetFromJsonAsync<List<SportApiRecord>>(
-                $"http://172.20.10.2:8000/sport/user/{UserName}");
+                $"http://192.168.1.106:8000/sport/user/{UserName}");
 
             Records.Clear();
 
@@ -179,7 +179,7 @@ public partial class SportRecordViewModel : ObservableObject
         };
 
         var response = await _httpClient.PostAsJsonAsync(
-            "http://172.20.10.2:8000/sport/add",
+            "http://192.168.1.106:8000/sport/add",
             apiData
         );
 

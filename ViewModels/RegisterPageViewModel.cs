@@ -10,7 +10,7 @@ namespace MauiMedicalApp.ViewModels
 {
     public partial class RegisterPageViewModel : ObservableObject
     {
-        private readonly HttpClient _client = new HttpClient { BaseAddress = new Uri("http://172.20.10.2:8000") };
+        private readonly HttpClient _client = new HttpClient { BaseAddress = new Uri("http://192.168.1.106:8000") };
 
 
         [ObservableProperty] private string account = string.Empty;

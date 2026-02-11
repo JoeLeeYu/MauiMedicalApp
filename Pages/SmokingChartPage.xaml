@@ -3,9 +3,7 @@
     x:Class="MauiMedicalApp.Pages.SmokingChartPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiMedicalApp.Pages"
     xmlns:viewmodels="clr-namespace:MauiMedicalApp.ViewModels"
-    xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
     Title="吸菸紀錄圖表">
 
     <ContentPage.BindingContext>
@@ -15,38 +13,153 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- 標題 -->
-            <Label Text="每日吸菸量統計圖表"
-                   FontSize="24"
-                   HorizontalOptions="Center"
-                   HorizontalTextAlignment="Center"
-                   TextColor="Black" />
+            <!-- ================= 本週戒菸趨勢 ================= -->
+            <Border Padding="20"
+                    StrokeShape="RoundRectangle 20"
+                    BackgroundColor="White">
 
-            <!-- 選擇統計範圍 -->
-            <Picker x:Name="RangePicker"
-                    Title="選擇統計範圍"
-                    ItemsSource="{Binding RangeOptions}"
-                    SelectedItem="{Binding SelectedRange}"
-                    HeightRequest="50"
-                    FontSize="18"/>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="本週戒菸趨勢"
+                           FontAttributes="Bold"
+                           FontSize="16" />
 
-            <!-- 狀態指示燈 -->
-            <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                <Ellipse WidthRequest="30"
-                         HeightRequest="30"
-                         Fill="{Binding IndicatorColor}"
-                         Stroke="Gray"
-                         StrokeThickness="2"/>
-                <Label Text="{Binding IndicatorText}"
-                       FontSize="14"
-                       TextColor="Black" />
+                    <!-- 進度條 -->
+                    <Grid ColumnDefinitions="*,*"
+                          HeightRequest="18">
+
+                        <BoxView Grid.Column="0"
+                                 Color="#34C759"
+                                 CornerRadius="9"
+                                 WidthRequest="{Binding SuccessRatioWidth}"
+                                 HorizontalOptions="Start" />
+
+                        <BoxView Grid.Column="1"
+                                 Color="#FF3B30"
+                                 CornerRadius="9"
+                                 WidthRequest="{Binding FailureRatioWidth}"
+                                 HorizontalOptions="End" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Grid.Column="0"
+                               Text="{Binding SuccessCountText}"
+                               TextColor="#34C759"
+                               FontSize="12"
+                               FontAttributes="Bold"/>
+
+                        <Label Grid.Column="1"
+                               Text="{Binding FailureCountText}"
+                               TextColor="#FF3B30"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ================= 補記過去紀錄（重點修正區） ================= -->
+            <Border Padding="16"
+                    StrokeShape="RoundRectangle 15"
+                    BackgroundColor="#F0F0F7">
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="📅 補記過去紀錄"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+
+                    <!-- 日期：單獨一行，避免壓縮 -->
+                    <DatePicker Date="{Binding SelectedDate}"
+                                MaximumDate="{Binding TodayDate}"
+                                Format="yyyy/MM/dd"
+                                FontSize="15"
+                                HeightRequest="44"/>
+
+                    <!-- 支數 + 補記 -->
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="12">
+
+                        <HorizontalStackLayout Spacing="8"
+                                               VerticalOptions="Center">
+                            <Label Text="{Binding SmokeAmount, StringFormat='{0} 支'}"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"/>
+
+                            <Stepper Value="{Binding SmokeAmount}"
+                                     Minimum="1"
+                                     Maximum="20"
+                                     Increment="1"/>
+                        </HorizontalStackLayout>
+
+                        <Button Grid.Column="1"
+                                Text="補記"
+                                Command="{Binding AddPastRecordCommand}"
+                                BackgroundColor="#5856D6"
+                                TextColor="White"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                Padding="16,0"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ================= 歷史紀錄 ================= -->
+            <VerticalStackLayout Spacing="10">
+
+                <Label Text="歷史紀錄明細"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       Margin="5,0"/>
+
+                <CollectionView ItemsSource="{Binding HistoryRecords}"
+                                EmptyView="目前尚無紀錄，開始你的戒菸之旅吧！">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,12"
+                                    Padding="16"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="White">
+
+                                <Grid ColumnDefinitions="Auto,*,Auto"
+                                      ColumnSpacing="12">
+
+                                    <Border Grid.Column="0"
+                                            HeightRequest="40"
+                                            WidthRequest="40"
+                                            StrokeShape="RoundRectangle 20"
+                                            BackgroundColor="{Binding IconBgColor}">
+                                        <Label Text="{Binding Icon}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               FontSize="20"/>
+                                    </Border>
+
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         VerticalOptions="Center">
+                                        <Label Text="{Binding Title}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"
+                                               TextColor="#3A3A3C"/>
+                                        <Label Text="{Binding TimeString}"
+                                               FontSize="12"
+                                               TextColor="#8E8E93"/>
+                                    </VerticalStackLayout>
+
+                                    <Label Grid.Column="2"
+                                           Text="{Binding ValueChangeText}"
+                                           TextColor="{Binding ValueColor}"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           FontSize="13"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
             </VerticalStackLayout>
-
-            <!-- 折線圖 -->
-            <microcharts:ChartView Chart="{Binding SmokingChart}"
-                                   HeightRequest="300"/>
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

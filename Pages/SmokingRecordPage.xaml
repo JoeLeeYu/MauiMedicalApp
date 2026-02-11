@@ -10,63 +10,62 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="24">
 
-            <!-- 統計 -->
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Border StrokeShape="RoundRectangle 24" BackgroundColor="#5856D6" Padding="20" StrokeThickness="0">
+                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                    <Label Text="目前戒菸獎勵" TextColor="#CCCCFF" FontSize="14" HorizontalOptions="Center"/>
+                    <Label Text="{Binding SavedMoneyText}" TextColor="White" FontSize="36" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="{Binding CleanTimeText}" TextColor="White" Opacity="0.8" FontSize="12" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
 
-                <Frame Grid.Column="0" Padding="10" BackgroundColor="#F4F4F5">
-                    <VerticalStackLayout HorizontalOptions="Center">
-                        <Label Text="今日抽菸量" FontSize="14" />
-                        <Label Text="{Binding SmokeCountText}"
-                               FontAttributes="Bold" FontSize="22"/>
-                    </VerticalStackLayout>
-                </Frame>
+            <Border StrokeShape="RoundRectangle 24" BackgroundColor="White" Padding="30" StrokeThickness="0">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="肺部純淨模擬" FontAttributes="Bold" HorizontalOptions="Center" FontSize="16"/>
 
-                <Frame Grid.Column="1" Padding="10" BackgroundColor="#F4F4F5">
-                    <VerticalStackLayout HorizontalOptions="Center">
-                        <Label Text="消耗金額" FontSize="14" />
-                        <Label Text="{Binding MoneyText}"
-                               FontAttributes="Bold" FontSize="22"/>
-                    </VerticalStackLayout>
-                </Frame>
+                    <Grid HeightRequest="180" WidthRequest="180" HorizontalOptions="Center">
+                        <Ellipse x:Name="BreathBubble"
+                                 Fill="{Binding LungBubbleColor}" 
+                                 HeightRequest="140" WidthRequest="140"
+                                 HorizontalOptions="Center" VerticalOptions="Center"
+                                 Opacity="0.7" />
 
-                <Frame Grid.Column="2" Padding="10" BackgroundColor="#F4F4F5">
-                    <VerticalStackLayout HorizontalOptions="Center">
-                        <Label Text="焦油量" FontSize="14" />
-                        <Label Text="{Binding TarText}"
-                               FontAttributes="Bold" FontSize="22"/>
-                    </VerticalStackLayout>
-                </Frame>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="{Binding LungHealthProgress, StringFormat='{0:P0}'}" 
+                                   FontSize="32" FontAttributes="Bold" TextColor="#3A3A3C" HorizontalOptions="Center"/>
+                            <Label Text="純淨度" FontSize="10" TextColor="#8E8E93" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Label Text="{Binding LungStatusText}" TextColor="{Binding LungStatusColor}" 
+                           FontAttributes="Bold" HorizontalOptions="Center" FontSize="18"/>
+                </VerticalStackLayout>
+            </Border>
+            <Border StrokeShape="RoundRectangle 16" BackgroundColor="White" Padding="0" Margin="0,10,0,20" StrokeThickness="1" Stroke="#E5E5EA">
+
+                <Button Text="查看完整健康趨勢與歷史明細 ➔"
+                    Command="{Binding GoSmokingChartCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="#5856D6"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    HeightRequest="60" />   
+            </Border>
+
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <Button Grid.Column="0" Text="🧘 我忍住了" 
+                        Command="{Binding ResistCommand}"
+                        BackgroundColor="#34C759" CornerRadius="15" HeightRequest="80" FontAttributes="Bold"/>
+
+                <Button Grid.Column="1" Text="🚬 抽了一支" 
+                        Command="{Binding SmokeCommand}"
+                        BackgroundColor="#E5E5EA" TextColor="#FF3B30" CornerRadius="15" HeightRequest="80" FontAttributes="Bold"/>
             </Grid>
 
-            <!-- Tar Picker -->
-            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                <Label Text="每支焦油 (mg)" VerticalTextAlignment="Center" />
-                <Picker ItemsSource="{Binding TarOptions}"
-                        SelectedItem="{Binding TarPerCig}"
-                        WidthRequest="120"/>
-            </HorizontalStackLayout>
+            <Label Text="{Binding MotivationQuote}" 
+                   TextColor="#8E8E93" HorizontalTextAlignment="Center" FontSize="13" LineHeight="1.4"/>
 
-            <!-- 抽菸按鈕 -->
-            <ImageButton Source="smoke123.png"
-                         HeightRequest="200"
-                         BackgroundColor="Transparent"
-                         HorizontalOptions="Center"
-                         Command="{Binding AddSmokeCommand}" />
-
-            <!-- 查看圖表 -->
-            <Button Text="查看吸菸紀錄圖表"
-                    Command="{Binding ViewChartCommand}"
-                    BackgroundColor="#007AFF"
-                    TextColor="White"
-                    CornerRadius="8"
-                    HeightRequest="50"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

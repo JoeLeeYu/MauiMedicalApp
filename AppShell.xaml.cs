@@ -14,6 +14,7 @@ using MauiMedicalApp.Pages;
             Routing.RegisterRoute("ImagePredictPage", typeof(ImagePredictPage));
             Routing.RegisterRoute("RegisterPage", typeof(RegisterPage));
             Routing.RegisterRoute("DietRecordPage", typeof(DietRecordPage));
+            Routing.RegisterRoute("HealthSimulationPage", typeof(HealthSimulationPage));
     }
   }
 

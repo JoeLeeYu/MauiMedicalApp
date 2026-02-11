@@ -8,13 +8,13 @@ public partial class SmokingChartPage : ContentPage
     {
         InitializeComponent();
 
-        // ✅ 使用正確的 ViewModel 名稱
-        BindingContext = new SmokingChartViewModel();
-
-        Loaded += async (s, e) =>
+    }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is SmokingChartViewModel vm)
         {
-            if (BindingContext is SmokingChartViewModel vm)
-                await vm.LoadChartAsync();
-        };
+            await vm.LoadDataCommand.ExecuteAsync(null);
+        }
     }
 }

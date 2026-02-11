@@ -18,7 +18,7 @@ public partial class RiskPredictViewModel : ObservableObject
     {
         try
         {
-            string url = "http://172.20.10.2:8000/risk";
+            string url = "http://192.168.1.106:8000/risk";
             string json = JsonSerializer.Serialize(data);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 

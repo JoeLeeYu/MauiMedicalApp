@@ -133,7 +133,7 @@ public partial class ImagePredictPageViewModel : ObservableObject
             form.Add(byteContent, "file", Path.GetFileName(_selectedPhotoPath));
 
             // ⚠️ 你的後端 API
-            var url = "http://172.20.10.2:8000/predict";
+            var url = "http://192.168.1.106:8000/predict";
 
             var response = await client.PostAsync(url, form);
             var jsonStr = await response.Content.ReadAsStringAsync();

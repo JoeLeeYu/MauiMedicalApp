@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiMedicalApp.ViewModels"
+    x:Class="MauiMedicalApp.Pages.HealthSimulationPage"
+    BackgroundColor="#F2F2F7" 
+    Title="未來健康模擬">
+
+    <ContentPage.BindingContext>
+        <vm:HealthSimulationViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="24">
+
+            <Border StrokeShape="RoundRectangle 24"
+                    Padding="24"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.06" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="6 個月後健康風險指數"
+                           FontSize="14"
+                           TextColor="#8E8E93"
+                           FontAttributes="Bold"/>
+
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="End">
+                        <Label Text="{Binding HealthScore}"
+                               FontSize="64"
+                               FontAttributes="Bold"
+                               TextColor="{Binding RiskColor}"/>
+
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                            <Label Text="{Binding RiskText}" 
+                                   TextColor="{Binding RiskColor}" 
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding ImprovementText}"
+                                   FontSize="12"
+                                   TextColor="#8E8E93"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <BoxView HeightRequest="1" BackgroundColor="#F2F2F7" Margin="0,4"/>
+
+                    <Label Text="📅 預測時間：6 個月後（依目前生活型態）"
+                           FontSize="12"
+                           TextColor="#AEAEB2"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="16">
+                <Label Text="生活型態調整"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       Margin="4,0,0,4"
+                       TextColor="Black"/>
+
+                <Border StrokeShape="RoundRectangle 16" BackgroundColor="White" Padding="18" StrokeThickness="0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="6" Opacity="0.03" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Label Text="🚬" FontSize="20" Grid.Column="0"/>
+                            <Label Text="抽菸頻率" FontAttributes="Bold" FontSize="16" Grid.Column="1" Margin="10,0" VerticalOptions="Center"/>
+                            <Label Text="{Binding SmokingPerWeek, StringFormat='{0:F0} 次 / 週'}" 
+                                   Grid.Column="2" VerticalOptions="Center" TextColor="#5856D6" FontAttributes="Bold"/>
+                        </Grid>
+                        <Slider Minimum="0" Maximum="14" Value="{Binding SmokingPerWeek}" 
+                                MinimumTrackColor="#5856D6" MaximumTrackColor="#E5E5EA" ThumbColor="White"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 16" BackgroundColor="White" Padding="18" StrokeThickness="0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="6" Opacity="0.03" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Label Text="🏃" FontSize="20" Grid.Column="0"/>
+                            <Label Text="運動量" FontAttributes="Bold" FontSize="16" Grid.Column="1" Margin="10,0" VerticalOptions="Center"/>
+                            <Label Text="{Binding ExerciseMinutes, StringFormat='{0:F0} 分鐘'}" 
+                                   Grid.Column="2" VerticalOptions="Center" TextColor="#34C759" FontAttributes="Bold"/>
+                        </Grid>
+                        <Slider Minimum="0" Maximum="300" Value="{Binding ExerciseMinutes}" 
+                                MinimumTrackColor="#34C759" MaximumTrackColor="#E5E5EA" ThumbColor="White"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 16" BackgroundColor="White" Padding="18" StrokeThickness="0">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="6" Opacity="0.03" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Label Text="🍱" FontSize="20" Grid.Column="0"/>
+                            <Label Text="飲食熱量" FontAttributes="Bold" FontSize="16" Grid.Column="1" Margin="10,0" VerticalOptions="Center"/>
+                            <Label Text="{Binding DailyCalories, StringFormat='{0:F0} kcal'}" 
+                                   Grid.Column="2" VerticalOptions="Center" TextColor="#FF9500" FontAttributes="Bold"/>
+                        </Grid>
+                        <Slider Minimum="1500" Maximum="3000" Value="{Binding DailyCalories}" 
+                                MinimumTrackColor="#FF9500" MaximumTrackColor="#E5E5EA" ThumbColor="White"/>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <Border StrokeShape="RoundRectangle 16" BackgroundColor="#F2F2F7" Padding="20" StrokeThickness="1" Stroke="#E5E5EA">
+                <VerticalStackLayout Spacing="10">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="💡" FontSize="16"/>
+                        <Label Text="系統分析建議" FontSize="15" FontAttributes="Bold" TextColor="#3A3A3C"/>
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding AiExplanation}" FontSize="15" TextColor="#48484A" LineHeight="1.4"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView HeightRequest="20" Color="Transparent"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -40,7 +40,7 @@ public partial class LoginViewModel : ObservableObject
                 password = Password
             };
 
-            string url = "http://172.20.10.2:8000/auth/login";
+            string url = "http://192.168.1.106:8000/auth/login";
 
             var response = await _httpClient.PostAsJsonAsync(url, loginData);
 
